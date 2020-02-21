@@ -4,16 +4,18 @@ utility for exporting large data from splunk instances
 
 ## installation / usage
 
+### with npm (recommended)
+
 requires [npm](https://www.npmjs.com/get-npm) to be installed
 
-### without install (recommended)
+#### without install (recommended)
 
 ```shell script
 # run command and follow the instructions
 npx splunk-export
 ````
 
-### with install
+#### with install
 
 ```shell script
 # install package
