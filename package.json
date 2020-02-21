@@ -1,0 +1,26 @@
+{
+  "name": "splunk-export",
+  "version": "0.0.0",
+  "description": "utility for exporting large data from splunk",
+  "main": "bin/main",
+  "bin": "bin/main",
+  "scripts": {
+    "postinstall": "chmod +x bin/main",
+    "test": "true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/specialblend/splunk-export.git"
+  },
+  "keywords": [
+    "splunk",
+    "export",
+    "data"
+  ],
+  "author": "cj@specialblend.net",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/specialblend/splunk-export/issues"
+  },
+  "homepage": "https://github.com/specialblend/splunk-export#readme"
+}

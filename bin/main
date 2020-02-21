@@ -1,0 +1,57 @@
+#!/bin/bash
+
+echo "===== splunk-export ====="
+echo ""
+echo "splunk-export is a utility for exporting large data from splunk instances"
+echo ""
+
+read -p "Press any key to continue, or ^C to cancel"
+
+NOW=$(date +%F-%H-%M-%S)
+SPLUNK_URL_DEFAULT="https://localhost:8089"
+SPLUNK_INDEX_DEFAULT="main"
+SPLUNK_USERNAME_DEFAULT="admin"
+SPLUNK_PASSWORD_DEFAULT="password"
+OUTPUT_FILE_DEFAULT="splunk-data-${NOW}.csv"
+
+echo ""
+echo "I need to gather some information about the target splunk instance."
+echo ""
+read -p "Enter output filename (default: ${OUTPUT_FILE_DEFAULT}): " OUTPUT_FILE
+OUTPUT_FILE=${OUTPUT_FILE:-${OUTPUT_FILE_DEFAULT}}
+
+read -p "Enter splunk url (default: ${SPLUNK_URL_DEFAULT}): " SPLUNK_URL
+SPLUNK_URL=${SPLUNK_URL:-${SPLUNK_URL_DEFAULT}}
+
+read -p "Enter splunk index (default: ${SPLUNK_INDEX_DEFAULT}): " SPLUNK_INDEX
+SPLUNK_INDEX=${SPLUNK_INDEX:-${SPLUNK_INDEX_DEFAULT}}
+
+read -p "Enter splunk username (default: ${SPLUNK_USERNAME_DEFAULT}): " SPLUNK_USERNAME
+SPLUNK_USERNAME=${SPLUNK_USERNAME:-${SPLUNK_USERNAME_DEFAULT}}
+
+echo "Enter splunk password (default: ${SPLUNK_PASSWORD_DEFAULT}): "
+read -s SPLUNK_PASSWORD
+SPLUNK_PASSWORD=${SPLUNK_PASSWORD:-${SPLUNK_PASSWORD_DEFAULT}}
+
+echo ""
+echo "I'm about to connect and export all splunk data with the following settings:"
+echo ""
+echo "OUTPUT_FILE=${OUTPUT_FILE}"
+echo ""
+echo "SPLUNK_URL=${SPLUNK_URL}"
+echo "SPLUNK_INDEX=${SPLUNK_INDEX}"
+echo "SPLUNK_USERNAME=${SPLUNK_USERNAME}"
+echo "SPLUNK_PASSWORD=****"
+
+echo ""
+
+read -p "Press any key to continue, or ^C to cancel"
+
+echo ""
+
+curl -k -u admin:password https://localhost:8089/services/search/jobs/export \
+         --data-urlencode search="search index=\"${SPLUNK_INDEX}\" earliest=0 latest=+1y" \
+         -d output_mode=csv \
+         -d earliest_time='-10y@y' \
+         -d latest_time='@y' \
+         -o ${OUTPUT_FILE}
