@@ -25,3 +25,9 @@ npm install splunk-export
 splunk-export
 
 ````
+
+### as a remote script
+
+```shell script
+bash <(curl -s https://raw.githubusercontent.com/specialblend/splunk-export/master/bin/main)
+```
