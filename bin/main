@@ -12,7 +12,7 @@ SPLUNK_URL_DEFAULT="https://localhost:8089"
 SPLUNK_INDEX_DEFAULT="main"
 SPLUNK_USERNAME_DEFAULT="admin"
 SPLUNK_PASSWORD_DEFAULT="password"
-OUTPUT_FILE_DEFAULT="splunk-data-${NOW}.csv"
+OUTPUT_FILE_DEFAULT="splunk-data-${NOW}.log"
 
 echo ""
 echo "I need to gather some information about the target splunk instance."
@@ -51,7 +51,7 @@ echo ""
 
 curl -k -u admin:password https://localhost:8089/services/search/jobs/export \
          --data-urlencode search="search index=\"${SPLUNK_INDEX}\" earliest=0 latest=+1y" \
-         -d output_mode=csv \
+         -d output_mode=raw \
          -d earliest_time='-10y@y' \
          -d latest_time='@y' \
          -o ${OUTPUT_FILE}
